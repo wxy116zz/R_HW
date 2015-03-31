@@ -1,0 +1,14 @@
+complete<-function(directory,idl){
+  files_list<-list.files(directory,full.name=T)
+  id<-c()
+  nobs<-c()
+  for(i in idl){
+    a<-read.csv(files_list[i])
+    #b<-subset(a, !is.na(a$"sulfate") & !is.na(a$"nitrate"))
+    #d<-nrow(b)
+    id<-append(id,i)
+    nobs<-append(nobs,sum(complete.cases(a)))
+  }
+  e<-data.frame(id,nobs)
+  print(e)
+}
