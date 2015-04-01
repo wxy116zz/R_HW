@@ -5,6 +5,7 @@ best<-function(state,outcome){
   b<-a[a$State==state,]
   b<-b[,c("Hospital.Name",outcome)]
   d<-b[order(b[,2]),]
+  d$"Hospital.Name"<-as.character(d$"Hospital.Name")
   e<-d[1,1]
   print(e)
 }
