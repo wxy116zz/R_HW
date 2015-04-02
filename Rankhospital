@@ -1,0 +1,20 @@
+rankhospital<-function(state,outcome,num){
+  a<-read.csv("outcome-of-care-measures.csv")
+  if(!any(state==a,na.rm=T)){stop("invalid state")}
+  else if(!any(outcome==names(a))){stop("invalid state")}
+  b<-a[a$State==state,]
+  b<-b[,c("Hospital.Name",outcome)]
+  b<-b[order(b[,2],decreasing=T),]
+  print(head(b))
+  b[ b =="Not Available"]<-NA
+  b[,2]<-as.numeric(b[,2])
+  b<-na.omit(b)
+  print(head(b))
+  b$"Hospital.Name"<-as.character(b$"Hospital.Name")
+  c<-length(b[,1])
+  if(num=="best"){print(b[1,1])}
+  else if(num=="worst"){print(b[c,1])}
+  else{
+    print(b[num,1])
+  }
+}
