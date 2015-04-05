@@ -1,0 +1,26 @@
+rankall<-function(outcome,num){
+  a<-read.csv("outcome-of-care-measures.csv")
+  if(!any(outcome==names(a))){stop("invalid outcome")}
+  hospital<-c()
+  sta<-c()
+  b<-split(a,a$State)
+  for(i in 1:length(b)){
+    d<-b[[i]][,c("Hospital.Name",outcome,"State")]
+    d[,2]<-as.numeric(d[,2])
+    d[,1]<-as.character(d[,1])
+    d[,3]<-as.character(d[,3])
+    d<-d[order(d[,2]),]
+    print(head(d))
+    hospital<-append(hospital,d[num,1])
+    sta<-append(sta,d[num,3])
+  }
+  e<-data.frame(hospital,sta)
+  e<-e[order(e[,2]),]
+}
+rankall <- function(outcome, num = "best") {
+        ## Read outcome data
+}
+## Check that state and outcome are valid
+## For each state, find the hospital of the given rank
+## Return a data frame with the hospital names and the
+## (abbreviated) state name
